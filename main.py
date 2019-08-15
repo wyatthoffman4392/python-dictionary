@@ -20,7 +20,20 @@ def getData():
         elif userInput.upper() in data:
             return data[userInput.upper()]
         elif len(get_close_matches(userInput, data.keys())) > 0:
-            return ("Did you mean %s instead" % get_close_matches(userInput, data.keys())[0])
+            while True:
+                action = input("Did you mean %s instead? {y or n]: " % get_close_matches(userInput, data.keys())[0])
+                if (action == "y"):
+                    return data[get_close_matches(userInput, data.keys())[0]]
+                    break
+                elif (action == "n"):
+                    return ("The word doesn't exist, yet.")
+                    break
+                else:
+                    return ("Invalid entry. Please enter 'y' or 'n'")
+                    continue
+
+
+
         else:
             print("That word is not available, please check the word is spelled correctly.")
             print()
