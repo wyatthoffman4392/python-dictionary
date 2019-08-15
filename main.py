@@ -2,7 +2,7 @@
 import json
 from difflib import get_close_matches
 
-# Load in the JSON date
+# Load in the JSON data
 data = json.load(open("dictionary.json"))
 
 # Main function
@@ -39,7 +39,16 @@ def getDefinition():
             if (action == "y"):
                 return data[get_close_matches(userInput, data.keys())[0]]
             elif (action == "n"):
-                print("The word doesn't exist, yet.")
+                addWord = input("The word doesn't exist, yet. Would you like to add it? [y or n]: ")
+                if (addWord == "y"):
+                    definition = input("Enter the definition for %s: " % userInput)
+                    newWord = {userInput: definition}
+                    insert = data.dumps(newWord)
+                    print("%s has been added" % userInput)
+                elif (addWord == "n"):
+                    print("OK, thanks for using the dictionary!")
+                else:
+                    print("Invalid entry. Please enter 'y' or 'n'")
             else:
                 return ("Invalid entry. Please enter 'y' or 'n'")
         # If word isn't in the dictionary the while loop resets and they can input another word
